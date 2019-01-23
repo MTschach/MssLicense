@@ -28,9 +28,6 @@ public class License extends LicenseBase {
       if (!Tools.isSet(this.customerNumber))
          throw new LicenseException(de.mss.utils.exception.ErrorCodes.ERROR_INVALID_PARAM, "no customer number given");
 
-      if (this.licenseKey == null)
-         throw new LicenseException(de.mss.utils.exception.ErrorCodes.ERROR_INVALID_PARAM, "no license key given");
-
       String flavor = flavorAppId(this.appId, this.customerNumber, this.licenseKey.getLicenseVersion());
       de.mss.utils.CRC16CCITT c = new CRC16CCITT();
       c.update(flavor.toUpperCase().getBytes());

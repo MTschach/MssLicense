@@ -6,10 +6,32 @@
  * user guide available at https://docs.gradle.org/4.10/userguide/java_library_plugin.html
  */
 
-plugins {
-    // Apply the java-library plugin to add support for Java Library
-    id 'java-library'
+// Apply the java-library plugin to add support for Java Library
+apply plugin: 'java-library'
+
+def artifact = new Properties()
+artifact.load(new FileInputStream("${project.projectDir}${File.separator}deploy.settings"))
+
+version = artifact.version
+
+buildscript {
+    repositories {
+        jcenter()
+        google()
+    }
+	dependencies {
+		classpath 'com.android.tools.build:gradle:3.2.1'
+		classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+		classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
+    }
 }
+
+allprojects {
+	repositories {
+		jcenter()
+	}
+}
+
 
 dependencies {
 	compile 'Mss:MssUtils:latest.release'
@@ -25,3 +47,5 @@ repositories {
 		url "https://dl.bintray.com/mtschach/Mss"
 	}
 }
+
+apply from: 'deploy.gradle'

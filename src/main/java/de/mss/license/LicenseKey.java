@@ -35,14 +35,8 @@ public class LicenseKey extends LicenseBase{
       this.licenseType = LicenseType.getByUuidValue(version & 0xff);
 
       this.controlSum = Integer.parseInt(keys[4].substring(keys[4].length() - 5, keys[4].length() - 1), 16);
-      int c = getControlSumV0(keys[0], 0);
-      c = getControlSumV0(keys[1], c);
-      c = getControlSumV0(keys[2], c);
-      c = getControlSumV0(keys[3], c);
-      c = getControlSumV0(keys[4], c);
 
-      if (c != 0)
-         throw new LicenseException(ErrorCodes.ERROR_INVALID_LICENSE_KEY, "wrong license key");
+      checkAndGetControlByte(this.licenseKey, this.licenseVersion);
    }
 
 
@@ -64,4 +58,6 @@ public class LicenseKey extends LicenseBase{
    public int getControlSum() {
       return this.controlSum;
    }
+
+
 }
