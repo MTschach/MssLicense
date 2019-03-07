@@ -48,4 +48,13 @@ repositories {
 	}
 }
 
+
+task genJniFiles(type:Exec) {
+	def classpath = sourceSets.main.output.classesDir
+	def nativeIncludes = "src/main/cpp"
+	commandLine "javah", "-d", nativeIncludes, "-classpath", classpath, "de.mss.license.LicenseBase"
+	
+	dependsOn classes
+}
+
 apply from: 'deploy.gradle'
