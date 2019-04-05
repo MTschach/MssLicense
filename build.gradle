@@ -57,4 +57,11 @@ task genJniFiles(type:Exec) {
 	dependsOn classes
 }
 
+
+jar {
+	from('lib') {
+		include '*.dll', '*.so'
+	}
+}
+
 apply from: 'deploy.gradle'
